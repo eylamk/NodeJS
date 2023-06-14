@@ -4,7 +4,7 @@
 const app = require('./server');
 
 // Starting the server and listening for incoming requests
-app.listen(process.env.PORT || 80, '0.0.0.0' , () => {
+app.listen(process.env.PORT || 80, process.env.IP || 'localhost' , () => {
   console.log(`Server up and running at ${process.env.PORT || 80}`);
 });
 
