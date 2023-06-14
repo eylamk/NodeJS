@@ -4,8 +4,8 @@
 const app = require('./server');
 
 // Starting the server and listening for incoming requests
-app.listen(process.env.PORT || 3000, 'localhost', () => {
-  console.log(`Server up and running at ${process.env.PORT || 3000}`);
+app.listen(process.env.PORT || 80, '0.0.0.0' , () => {
+  console.log(`Server up and running at ${process.env.PORT || 80}`);
 });
 
 module.exports = app;
