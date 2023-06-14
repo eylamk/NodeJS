@@ -4,7 +4,7 @@
 const express = require('express');
 const getReport = require('./controllers/getreport');
 const addCost = require('./controllers/addcost');
-const creators = require('./controllers/aboutroute');
+const creators = require('./controllers/about');
 const isInputValid = require('./middlewares/isinputvalid');
 const router = express.Router();
 
