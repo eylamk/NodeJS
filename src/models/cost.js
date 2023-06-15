@@ -4,9 +4,10 @@
 // Importing the mongoose library and the necessary components
 const mongoose = require('../db.js');
 const { Schema, model } = mongoose;
+const { Guid } = require('js-guid');
 
 // Initializing the productId variable and defining the category array
-let productId = 0;
+let productId = Guid.newGuid().StringGuid;
 const categoryArr = [
   "food",
   "health",
@@ -19,7 +20,7 @@ const categoryArr = [
 
 // Creating the costSchema with the desired field types
 const costSchema = Schema({
-  id: Number,
+  id: String,
   user_id: String,
   description: String,
   category: String,
@@ -34,7 +35,7 @@ costSchema.methods.printMe = () => console.log(`ID: ${this.id}: userid: ${this.u
 sum: ${this.sum},year:${this.year},month:${this.month},day:${this.day}`);
 
 // Defining a custom method setID() on the costSchema to assign a unique ID to each cost
-costSchema.methods.setID = () => productId++;
+costSchema.methods.setID = () => productId;
 
 // Defining a custom method isCategoryValid() on the costSchema to check if a category is valid
 costSchema.methods.isCategoryValid = (item) => categoryArr.includes(item);

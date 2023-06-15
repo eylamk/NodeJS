@@ -9,7 +9,7 @@ const userSchema = mongoose.Schema({
   first_name: String,
   last_name: String,
   title: String,
-  birthday: Date,
+  birthday: String,
 });
 
 // Adding a custom method printMe() to the userSchema to print user details
