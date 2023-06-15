@@ -11,3 +11,5 @@ const dbUrl = 'mongodb+srv://admin:admin@clusterforproject.ywdwv5f.mongodb.net/?
 connect(dbUrl).then(console.log("Connected to database successfully")).catch((err) => console.error(err));
 
 module.exports = mongoose;
+
+
