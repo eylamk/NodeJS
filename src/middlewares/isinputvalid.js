@@ -10,12 +10,12 @@ const isInputValid = async (req, res, next) => {
       isValidDate(month, day) ||
       sum < 0
     ) {
-      res.status(400).json({ message: 'Wrong input!' });
+      res.status(400).json({ message: 'Wrong Was Provided!!' });
       return;
     }
     //checks if there's a matching document for current input if not returns null
     if (!(await isUser(user_id))) {
-      res.status(400).json({ message: 'No such user id exists in database' });
+      res.status(400).json({ message: 'No matching ID in the database' });
       return;
     }
   

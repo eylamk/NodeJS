@@ -4,10 +4,10 @@ const Cost = require('../models/cost.js');
 const getReport = async (req, res) => {
   const { user_id: id, year, month } = req.query;
   if (badDate(month, year)) {
-    res.status(400).json({ message: 'Wrong input' });
+    res.status(400).json({ message: 'Wrong Input Provided!' });
   }
   try {
-    const costs = await getAllCostsByUser(id, year, month);
+    const costs = await getUserCosts(id, year, month);
     const categories = Cost.prototype.getArray();
     const result = Object.fromEntries(
       categories.map(cat => [
@@ -26,6 +26,6 @@ const getReport = async (req, res) => {
 badDate = (month, year) => month < 1 || month > 12 || year < 0;
 
 //getting all costs that matches params.
-getAllCostsByUser = (user_id, year, month) => Cost.find({ user_id: user_id, year: year, month: month });
+getUserCosts = (user_id, year, month) => Cost.find({ user_id: user_id, year: year, month: month });
 
 module.exports = getReport;

@@ -8,6 +8,6 @@ const { connect } = mongoose;
 const dbUrl = 'mongodb+srv://admin:admin@clusterforproject.ywdwv5f.mongodb.net/?retryWrites=true&w=majority';
 
 // Establishing a connection to the MongoDB database
-connect(dbUrl).then(console.log("Connected to DB successfully")).catch((err) => console.error(err));
+connect(dbUrl).then(console.log("Connected to database successfully")).catch((err) => console.error(err));
 
 module.exports = mongoose;

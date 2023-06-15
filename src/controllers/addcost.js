@@ -3,7 +3,7 @@ const Cost = require('../models/cost.js');
 //creating cost after validating inputs.
 
 const addCost = async (req, res) => {
-    const json = await createCost({
+    const json = await generateCost({
       id: Cost.prototype.setID(),
       user_id: req.body.user_id,
       description: req.body.description,
@@ -17,7 +17,7 @@ const addCost = async (req, res) => {
   };
   
   //creating cost document in database.
-  async function createCost({
+  async function generateCost({
     id,
     user_id,
     description,
