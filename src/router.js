@@ -28,7 +28,6 @@ router.post('/addcost', isInputValidCost, addCost);
 /**
  * Route for retrieving JSON-formatted student details
  * @name get/about
- * @param creators - Route handler
  * @returns {object} - JSON-formatted student details
  */
 router.get('/about', (req, res) => {
