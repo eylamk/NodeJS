@@ -5,7 +5,7 @@ const express = require('express');
 const getReport = require('./controllers/getreport');
 const addCost = require('./controllers/addcost');
 const creators = require('./controllers/about');
-const isInputValid = require('./middlewares/isinputvalid');
+const {isInputValidCost, isInputValidReport} = require('./middlewares/isinputvalid');
 const router = express.Router();
 
 /**
@@ -14,7 +14,7 @@ const router = express.Router();
  * @param getReport - Route handler
  * @returns {object} - JSON-formatted report
  */
-router.get('/report', getReport);
+router.get('/report',isInputValidReport ,getReport);
 
 /**
  * Route for adding a cost with input validation middleware
@@ -23,7 +23,7 @@ router.get('/report', getReport);
  * @param addCost - Route handler
  * @returns {object} - JSON-formatted cost
  */
-router.post('/addcost', isInputValid, addCost);
+router.post('/addcost', isInputValidCost, addCost);
 
 /**
  * Route for retrieving JSON-formatted student details

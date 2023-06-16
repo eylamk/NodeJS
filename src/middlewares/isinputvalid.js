@@ -5,39 +5,58 @@ const Cost = require('../models/cost.js');
 const {isUser} = require('../models/user.js');
 
 //middleware to check if user's input valid and may proceed to creating cost.
-const isInputValid = async (req, res, next) => {
-    let { month, day, category, user_id, sum } = req.body; //destructing request
+const isInputValidCost = async (req, res, next) => {
+    let { year,month, day, category, user_id, sum } = req.body; //destructing request
+    
     //validating inputs
-    const validCat = Cost.prototype.isCategoryValid(category);
-    const validDate = isValidDate(month, day);
-    const validSum = sum > 0;
-    if (!validCat || !validDate || !validSum){
-      if (!validCat) {
-        res.status(400).json({ message: 'Provided invalid input: Non existing category' });
-      } 
-      if (!validDate) {
-        res.status(400).json({ message: 'Provided invalid input: Invalid date' });
-      }
-      if (!validSum) {
-        res.status(400).json({ message: 'Provided invalid input: The sum is below 0' });
-      }
-
-      return;
-   }
-
-    //checks if there's a matching document for current input if not returns null
-    if (!(await isUser(user_id))) {
-      res.status(400).json({ message: 'No matching ID in the database' });
+    let message = '';
+    if (!Cost.prototype.isCategoryValid(category)) message += 'Non existing category, '; 
+    if (!isValidDay(day)) message += 'Invalid day, ';
+    if (!isValidMonth(month)) message += 'Invalid month, ';
+    if (!isValidYear(year)) message += 'Invalid year, ';
+    if (!sum > 0) message += 'The sum is below 0, ';
+    if (!await isUser(user_id)) message += 'No matching ID in the database, ';
+    
+    if(message != '') {
+      message = message.substring(0, message.length - 2);
+      res.status(400).json({ message: message });
       return;
     }
-  
+
+    next();
+  };
+
+  //middleware to check if user's input valid and may proceed to creating report.
+  const isInputValidReport = async (req, res, next) => {
+    let { year,month,user_id} = req.query; //destructing request
+    
+    //validating inputs
+    let message = '';
+    if (!isValidDay(day)) message += 'Invalid day, ';
+    if (!isValidMonth(month)) message += 'Invalid month, ';
+    if (!isValidYear(year)) message += 'Invalid year, ';
+    if (!await isUser(user_id)) message += 'No matching ID in the database, ';
+    
+    if(message != '') {
+      message = message.substring(0, message.length - 2);
+      res.status(400).json({ message: message });
+      return;
+    }
+
     next();
   };
   
-  //check if the month/day params are valid
-  const isValidDate = (month, day) => {
-    if( month < 1 || month > 12 || day < 1 || day > 31) return false;
-    return true;
+  //validating date inputs
+  const isValidMonth = (month) => {
+    return !(month < 1 || month > 12)
   };
-  
-  module.exports = isInputValid;
+
+  const isValidYear = (year) => {
+    return !(year < 0 || year > 9999)
+  };
+
+  const isValidDay = (day) => {
+    return !(day < 1 || day > 31)
+  };
+
+  module.exports = {isInputValidCost,isInputValidReport, isValidDay, isValidMonth, isValidYear};
