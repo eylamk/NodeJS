@@ -1,10 +1,13 @@
+//Eylam Kadden - 206516957
+//Matan Roginsky - 206328346
+
 const Cost = require('../models/cost.js');
 
 //getting user report for certain month&year
 const getReport = async (req, res) => {
   const { user_id: id, year, month } = req.query;
   if (badDate(month, year)) {
-    res.status(400).json({ message: 'Wrong Input Provided!' });
+    res.status(400).json({ message: 'An invalid date provided - month or year' });
   }
   try {
     const costs = await getUserCosts(id, year, month);
@@ -18,7 +21,7 @@ const getReport = async (req, res) => {
     );
     res.status(200).json(result);
   } catch (err) {
-    res.status(500).json({ message: err.message });
+    res.status(500).json({ message: 'An invalid user id provided' });
   }
 };
 

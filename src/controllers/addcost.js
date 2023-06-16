@@ -1,3 +1,6 @@
+//Eylam Kadden - 206516957
+//Matan Roginsky - 206328346
+
 const Cost = require('../models/cost.js');
 
 //creating cost after validating inputs.
@@ -41,7 +44,7 @@ const addCost = async (req, res) => {
     });
     json = await cost
       .save() //trying to save cost in DB.
-      .catch((err) => console.error(err)); //logging error about saving the document in database.
+      .catch(() => console.error('Failed to save the cost document in the DB')); //logging error about saving the document in database.
     return json;
   }
 

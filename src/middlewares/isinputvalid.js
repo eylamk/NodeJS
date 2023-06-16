@@ -1,3 +1,6 @@
+//Eylam Kadden - 206516957
+//Matan Roginsky - 206328346
+
 const Cost = require('../models/cost.js'); 
 const {isUser} = require('../models/user.js');
 
@@ -7,10 +10,10 @@ const isInputValid = async (req, res, next) => {
     //validating inputs
     if (
       !Cost.prototype.isCategoryValid(category) ||
-      isValidDate(month, day) ||
+      !isValidDate(month, day) ||
       sum < 0
     ) {
-      res.status(400).json({ message: 'Wrong Was Provided!!' });
+      res.status(400).json({ message: 'Provided invalid input: Non existing category / Invalid date (month or year) / The sum is below 0' });
       return;
     }
     //checks if there's a matching document for current input if not returns null
@@ -24,7 +27,8 @@ const isInputValid = async (req, res, next) => {
   
   //check if the month/day params are valid
   const isValidDate = (month, day) => {
-    return month < 1 || month > 12 || day < 1 || day > 31;
+    if( month < 1 || month > 12 || day < 1 || day > 31) return false;
+    return true;
   };
   
   module.exports = isInputValid;
