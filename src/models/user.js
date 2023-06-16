@@ -22,7 +22,7 @@ userSchema.methods.printMe = () => {
 // Defining the isUser function to check if a user exists based on user_id
 const isUser = async (user_id) => {
   let user = await User.findOne({ id: user_id }); //converting user_id to number with +.
-  console.log(user);
+  console.log(`${user || 'no user found with this id'}`);
   return user;
 };
 
