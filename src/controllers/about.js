@@ -1,3 +1,6 @@
+//Eylam Kadden - 206516957
+//Matan Roginsky - 206328346
+
 //Creating a the content for the "about" route 
 
 const creators = [

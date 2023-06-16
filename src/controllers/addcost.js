@@ -44,7 +44,10 @@ const addCost = async (req, res) => {
     });
     json = await cost
       .save() //trying to save cost in DB.
-      .catch(() => console.error('Failed to save the cost document in the DB')); //logging error about saving the document in database.
+      .catch((err) => {
+        return {message: 'Failed saving cost in the DB',
+        error : err}
+      }); //logging error about saving the document in database.
     return json;
   }
 
