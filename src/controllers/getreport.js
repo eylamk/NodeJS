@@ -6,8 +6,14 @@ const Cost = require('../models/cost.js');
 //getting user report for certain month&year
 const getReport = async (req, res) => {
   const { user_id: id, year, month } = req.query;
-  if (badDate(month, year)) {
-    res.status(400).json({ message: 'An invalid date provided - month or year' });
+  if (badDate(month, year) == 1) {
+    res.status(400).json({ message: 'Invalid month and day' });
+  }
+  if (badDate(month, year) == 2) {
+    res.status(400).json({ message: 'Invalid month'});
+  }
+  if (badDate(month, year) == 3) {
+    res.status(400).json({ message: 'Invalid day'});
   }
   try {
     const costs = await getUserCosts(id, year, month);
@@ -26,7 +32,11 @@ const getReport = async (req, res) => {
 };
 
 //check if the month/year params are valid
-badDate = (month, year) => month < 1 || month > 12 || year < 0;
+badDate = (month, year) => {
+  if((month > 12 || month < 1) && (day > 31 || day < 1)) return 1;
+  if((month > 12 || month < 1) && (day < 31 && day > 1)) return 2;
+  if((month < 12 && month > 1) && (day > 31 || day < 1)) return 3;
+}
 
 //getting all costs that matches params.
 getUserCosts = (user_id, year, month) => Cost.find({ user_id: user_id, year: year, month: month });

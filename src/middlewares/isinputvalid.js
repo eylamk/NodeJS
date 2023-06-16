@@ -8,14 +8,23 @@ const {isUser} = require('../models/user.js');
 const isInputValid = async (req, res, next) => {
     let { month, day, category, user_id, sum } = req.body; //destructing request
     //validating inputs
-    if (
-      !Cost.prototype.isCategoryValid(category) ||
-      !isValidDate(month, day) ||
-      sum < 0
-    ) {
-      res.status(400).json({ message: 'Provided invalid input: Non existing category / Invalid date (month or year) / The sum is below 0' });
+    const validCat = Cost.prototype.isCategoryValid(category);
+    const validDate = isValidDate(month, day);
+    const validSum = sum > 0;
+    if (!validCat || !validDate || !validSum){
+      if (!validCat && !validDate && !validSum) {
+        res.status(400).json({ message: 'Provided invalid input: Non existing category' });
+      } 
+      if (!validDate) {
+        res.status(400).json({ message: 'Provided invalid input: Invalid date' });
+      }
+      if (!validSum) {
+        res.status(400).json({ message: 'Provided invalid input: The sum is below 0' });
+      }
+
       return;
-    }
+   }
+
     //checks if there's a matching document for current input if not returns null
     if (!(await isUser(user_id))) {
       res.status(400).json({ message: 'No matching ID in the database' });
