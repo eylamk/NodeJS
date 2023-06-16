@@ -12,7 +12,7 @@ const isInputValid = async (req, res, next) => {
     const validDate = isValidDate(month, day);
     const validSum = sum > 0;
     if (!validCat || !validDate || !validSum){
-      if (!validCat && !validDate && !validSum) {
+      if (!validCat) {
         res.status(400).json({ message: 'Provided invalid input: Non existing category' });
       } 
       if (!validDate) {
