@@ -32,7 +32,6 @@ const isInputValidCost = async (req, res, next) => {
     
     //validating inputs
     let message = '';
-    if (!isValidDay(day)) message += 'Invalid day, ';
     if (!isValidMonth(month)) message += 'Invalid month, ';
     if (!isValidYear(year)) message += 'Invalid year, ';
     if (!await isUser(user_id)) message += 'No matching ID in the database, ';
