@@ -16,6 +16,6 @@ const reportSchema = Schema({
 // Creating the Report model using the costSchema
 const Report = model("report", reportSchema);
 
-getUserReport = (user_id, year, month) => Report.find({ user_id: user_id, year: year, month: month });
+getUserReport = (user_id, year, month) => Report.findOne({ user_id: user_id, year: year, month: month });
 
 module.exports = {Report,getUserReport};

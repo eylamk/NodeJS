@@ -9,9 +9,9 @@ const getReport = async (req, res) => {
   const { user_id: id, year, month } = req.query;
   //checking if report already exists in DB.
   const report = await getUserReport(id, year, month);
-  if (report.length) {
+  if (report != null) {
     //if report exists, returning it.
-    const result = report[0].report;
+    const result = report.report;
     res.status(200).json(result);
   }
   //if report doesn't exist, creating it.

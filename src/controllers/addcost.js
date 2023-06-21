@@ -47,9 +47,9 @@ const addCost = async (req, res) => {
 handleReportUpdate = async (req, session) =>{
   //checking if report already exists in DB.
   const report = await getUserReport(req.body.user_id, req.body.year, req.body.month, session);
-  if (report.length) {
+  if (report != null) {
     //if report exists, updating it.
-    const reportToUpdate = report[0].report;
+    const reportToUpdate = report.report;
     reportToUpdate[req.body.category].push({
       day: req.body.day,
       description: req.body.description,
