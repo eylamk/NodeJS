@@ -17,7 +17,8 @@ const getReport = async (req, res) => {
   //if report doesn't exist, creating it.
   else 
   {
-  const result = await createNewReport(id, year, month); //logging error about saving the document in database.;
+  // creating new report for user, save it in the DB and return it.
+  const result = await createNewReport(id, year, month); 
   res.status(200).json(result);
   }
 };
